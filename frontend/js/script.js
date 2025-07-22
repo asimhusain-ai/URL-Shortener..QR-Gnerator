@@ -105,7 +105,7 @@ async function shortenLink() {
 
   originalLink = url;
 
-  const res = await fetch("https://tinyurl-qc0z.onrender.com/shorten", {  // Paste Backend Link here ...
+  const res = await fetch("https://tinyurl-g30q.onrender.com/shorten", {  // Paste Backend Link here ...
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ originalUrl: url }),
