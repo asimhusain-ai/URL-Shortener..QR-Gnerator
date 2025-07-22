@@ -1,0 +1,250 @@
+/* THIS  CODE  IS  WRITTEN  BY  -- ASIM HUSAIN */
+
+/* Main Body */
+* {
+  box-sizing: border-box;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* CANVAS BACKGROUND LAYER */
+canvas {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 0;
+}
+
+/* MAIN CARD OVERLAY (Centered Box) */
+.qr-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+}
+
+/*  QR-CARD CONTAINER COMPONENT */
+.qr-card {
+  width: 1000px;
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+  backdrop-filter: blur(10px);
+  background: rgba(30, 30, 30, 0.85);
+  border-radius: 40px;
+  padding: 30px;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* TITLE (Header) */
+.title {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 24px;
+  margin: 0;
+}
+
+/*  LEFT PANEL (Preview) */
+.left {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Dropdown section heading */
+.section-heading {
+  color: #fff;
+  font-size: 18px;
+  margin-left: 60px;
+  margin-top: 10px;
+}
+
+/* QR Image preview */
+.left img {
+  border-radius: 5px;
+  width: 380px;
+  height: 380px;
+  background: #000;
+  margin-left: 50px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* DROPDOWN STYLE WRAPPER */
+.dropdowns {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Individual dropdown styling */
+.dropdown-group {
+  width: 185px;
+  font-size: 18px;
+  margin-top: -230px;
+  margin-bottom: 200px;
+  margin-left: 500px;
+  margin-right: -484px;
+  display: flex;
+  flex-direction: column;
+  color: rgb(254, 253, 253);
+  font-family: 'Ubuntu', sans-serif;
+}
+
+/* Dropdown label text */
+.dropdown-group label {
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Dropdown <select> styling */
+.dropdown-group select {
+  padding: 8px 50px;
+  border-radius: 6px;
+  border: none;
+  font-size: 18px;
+  outline: none;
+}
+
+/* GENERATE BUTTON STYLE */
+.left button {
+  margin-top: -100px;
+  margin-left: 1000px;
+  padding: 11px 75px;
+  background: #666767;
+  color: #fff;
+  font-weight: bold;
+  border: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+}
+
+/* Hover effect for button */
+.left button:hover {
+  background: #b7b9b9;
+}
+
+/* ACTION ICONS: Download, etc */
+.action-icons {
+  margin-left: 1300px;
+  display: flex;
+  gap: -4px;
+  margin-top: -50px;
+}
+
+.action-icons img {
+  background-color: transparent;
+  width: 32px;
+  height: 32px;
+  gap: 10px;
+  cursor: pointer;
+}
+
+/* RIGHT PANEL (INPUT) */
+.right {
+  margin-right: 0px;
+  margin-left: 40px;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+/* Input section heading */
+.right h2 {
+  margin-left: 15px;
+  margin-top: -25px;
+  font-size: 18px;
+  color: rgb(240, 245, 245);
+}
+
+/* Text input field styling */
+.right input[type="text"] {
+  margin-left: 15px;
+  background: rgba(254, 252, 252, 0.85);
+  border: 2px dotted #090808;
+  border-radius: 12px;
+  padding: 20px;
+  color: #090909;
+  font-size: 18px;
+  margin-bottom: 10px;
+  width: 85%;
+  height: 50px;
+  resize: none;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Placeholder text */
+.right input[type="text"]::placeholder {
+  color: #5d5b5b;
+  font-size: 16px;
+}
+
+/* Theme Toggle Switch */
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+/* Default: Moon Icon */
+#themeIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: inset -8px -8px 0 0 black;
+}
+
+/* Sun mode icon */
+#themeIcon.sun {
+  background: yellow;
+  box-shadow: none;
+}
+
+/* Dark / Light Theme */
+body.dark {
+  background: #000;
+  color: white;
+}
+
+canvas.dark {
+  background-color: #000;
+}
+
+body.light {
+  background: #fff;
+  color: #111;
+}
+
+canvas.light {
+  background-color: #fff;
+}

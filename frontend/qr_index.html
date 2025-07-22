@@ -1,0 +1,125 @@
+<!-- This Code is Written By  -- ASIM HUSAIN -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon1.png" type="image/x-icon">
+
+  <!-- Page Title -->
+  <title>GenerateQR</title>
+
+  <!-- Google Font: Ubuntu -->
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Theme Initialization Script -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.classList.add(savedTheme);
+    })();
+  </script>
+
+  <!-- External CSS File -->
+  <link rel="stylesheet" href="css/qr_style.css">
+</head>
+<body>
+
+  <!-- Theme Toggle Button -->
+  <div id="themeToggle" onclick="toggleTheme()">
+    <div id="themeIcon" class="moon"></div>
+  </div>
+
+  <!-- Back to Home Icon -->
+  <img 
+    id="pageBackIcon" 
+    src="images/back.png" 
+    title="Back to Home"
+    style="position: fixed; top: 20px; left: 20px; width: 32px; height: 32px; cursor: pointer; z-index: 100;"
+  >
+
+  <!-- Canvas Background -->
+  <canvas id="nokey">
+    Your Browser Doesn't Support Canvas
+  </canvas>
+
+  <!-- QR Generator Interface -->
+  <div class="qr-overlay">
+    <main class="qr-card">
+
+      <!-- Back Icon Inside QR Card -->
+      <img 
+        id="backIcon" 
+        src="images/back.png" 
+        title="Back"
+        style="position: absolute; top: 20px; left: 30px; width: 32px; height: 32px; cursor: pointer; display: none;"
+      >
+
+      <!-- Main Title -->
+      <h1 class="title">QR Code Generator</h1>
+
+      <!-- LEFT SECTION -->
+      <div class="left">
+
+        <!-- QR Preview Heading -->
+        <h3 class="section-heading">QR Code Preview</h3>
+
+        <!-- Default QR Image -->
+        <img 
+          id="qrImage" 
+          src="https://api.qrserver.com/v1/create-qr-code/?data=default&size=200x200" 
+          alt="QR Code"
+        >
+
+        <!-- Format and Quality Dropdowns -->
+        <div class="dropdowns">
+          <div class="dropdown-group">
+            <label for="qrType">Export Format</label>
+            <select id="qrType">
+              <option value="png">PNG</option>
+              <option value="svg">SVG</option>
+              <option value="jpeg">JPEG</option>
+            </select>
+          </div>
+          <div class="dropdown-group">
+            <label for="qrQuality">Export Quality</label>
+            <select id="qrQuality">
+              <option value="64x64">64 px</option>
+              <option value="128x128">128 px</option>
+              <option value="256x256">256 px</option>
+              <option value="512x512">512 px</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button id="generateBtn">Generate</button>
+
+        <!-- Download & Share Icons -->
+        <div class="action-icons" style="display: none;">
+          <img id="downloadIcon" src="images/download.png" title="Download" />
+          <img id="shareIcon" src="images/share.png" title="Share" />
+        </div>
+      </div>
+
+      <!-- RIGHT SECTION -->
+      <div class="right">
+        <h2>Enter URL</h2>
+        <input 
+          type="text" 
+          id="urlInput" 
+          placeholder="Paste your URL here"
+        >
+      </div>
+
+    </main>
+  </div>
+
+  <!-- External JavaScript File -->
+  <script src="js/qr_script.js"></script>
+
+</body>
+</html>

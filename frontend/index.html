@@ -1,0 +1,236 @@
+<!-- This Code is Written By  -- ASIM HUSAIN -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TinyURL</title>
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Google Fonts: Ubuntu -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"></noscript>
+
+  <!-- QR Scanner Library -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
+
+  <!-- EmailJS SDK / Initialization -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init("yExYiOn2v4HaFEsQQ");
+</script>
+
+
+
+  <!-- QR Code Generator Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+
+  <!-- Show mobile popup if screen width is small -->
+  <script>
+    window.onload = function () {
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        const popup = document.getElementById("mobilePopup");
+        popup.style.display = "flex";
+
+        const closeBtn = document.querySelector(".close-mobile-popup");
+        if (closeBtn) {
+          closeBtn.addEventListener("click", function () {
+            popup.style.display = "none";
+          });
+        }
+      }
+    };
+  </script>
+</head>
+<body class="dark">
+
+  <!-- Background Canvas -->
+  <canvas id="nokey"></canvas>
+
+  <!-- Page Title -->
+  <h1>Shorten URL</h1>
+
+  <!-- URL Input & QR Actions -->
+  <div class="input-wrapper" id="qrWrapper">
+
+    <!-- Back Arrow Icon -->
+    <img src="images/back.png" alt="Back" class="back-logo" id="backArrow" onclick="restoreOriginal()" style="display: none;" />
+
+    <!-- URL Input Field -->
+    <input type="text" id="urlInput" placeholder="Paste URL here ..." />
+
+    <!-- QR Icon Actions -->
+    <div class="qr-icon-container" id="qrContainer">
+
+      <!-- QR Scan Icon -->
+      <img src="images/qrscan.png" alt="Scan QR" id="qrScanIcon" onclick="startQRScan(event)" />
+
+      <!-- Copy Button -->
+      <div class="copy-wrapper" id="copyWrapper" style="display: none;">
+        <span class="copied-text" id="copiedText">Copied</span>
+        <img src="images/copy.png" alt="Copy" title="Copy Link" id="copyIcon" onclick="copyShortLink()" />
+      </div>
+
+      <!-- Show QR Code Icon -->
+      <img src="images/qrcode.png" alt="QR Code" id="qrCodeIcon" onclick="showQROptions()" style="display:none;" />
+
+      <!-- QR Code Download/Share Buttons -->
+      <div class="qr-icons" id="qrIcons">
+        <img src="images/download.png" alt="Download" title="Download" onclick="event.stopPropagation(); downloadQR();" />
+        <img src="images/share.png" alt="Share" title="Share" onclick="event.stopPropagation(); shareQR();" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Shorten Button -->
+  <button id="shortBtn" onclick="shortenLink()">Shorten</button>
+
+  <!-- Shortened URL Output -->
+  <p id="result"></p>
+
+  <!-- QR Code Scanner Popup -->
+  <div id="qrScanner" style="display:none;">
+    <div id="reader" style="width:300px;"></div>
+    <button onclick="stopQRScan()">Close</button>
+  </div>
+
+  <!-- Main JavaScript -->
+  <script src="js/script.js"></script>
+
+  <!-- Theme Toggle Button -->
+  <div id="themeToggle" onclick="toggleTheme()">
+    <div id="themeIcon" class="moon"></div>
+  </div>
+
+  <!-- Footer Navigation Links -->
+  <div class="footer">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <span>|</span>
+      <a href="unshort.html">Unshorten URl</a>
+      <span>|</span>
+      <a href="qr_index.html">QR Code Generator</a>
+      <span>|</span>
+      <a id="termsLink" onclick="openTermsPopup()">Terms & Conditions</a>
+      <span>|</span>
+      <a href="#" onclick="openContactPopup()">Contact</a>
+    </div>
+  </div>
+
+  <!-- Terms and Conditions Popup -->
+  <div id="termsPopup" class="popup-terms">
+    <div class="popup-content-terms">
+      <span class="close-terms" onclick="closeTermsPopup()">&times;</span>
+      <h2>Terms & Conditions</h2>
+      <div class="terms-body">
+        <h3>Terms and Conditions</h3><br>
+        <p>
+          Welcome, and thank you for using this tool. This site lets you shorten and unshorten URLs, 
+          create QR codes, scan QR codes, and reach out through a contact form. By using any of these features, 
+          you’re agreeing to follow a few simple rules. They’re here to protect you, the developer, and others 
+          who use the tool.
+          <br><br>
+          First and foremost, please use this service responsibly. It’s built to make life easier by simplifying 
+          links and sharing content through QR codes. It’s not meant to be used for anything illegal, misleading, 
+          or harmful. If you’re shortening a link, make sure it’s safe and appropriate. If you’re unshortening 
+          someone else’s link, be cautious — we don’t check where third-party links lead, so you're clicking at 
+          your own risk.
+          <br><br>
+          When you create a short URL, we temporarily store the original link and generate a shorter version. 
+          We don’t promise the short link will last forever. If it’s inactive or misused, it may stop working. 
+          On the other hand, if you’re using the unshorten feature, it will try to pull the original URL from 
+          either the database or a known format. But if the link was made using another service or is broken, 
+          there’s no guarantee it’ll work.
+          <br><br>
+          QR code generation is fully handled on your device. Whatever you type to generate a code stays on your 
+          side — it’s not stored or sent to a server. Same thing when you scan a QR code. The scanner works through 
+          your device’s camera, and the data stays local. We don’t see it, save it, or use it. That said, be smart 
+          about what you scan. If it’s a QR code from an unknown source, treat it like a suspicious link.
+          <br><br>
+          The theme toggle (switching between light and dark mode) is here just to make the experience more comfortable. 
+          Your choice might be saved in your browser, so the site remembers it next time, but we don’t collect anything 
+          related to that. It’s only for looks — no tracking involved.
+          <br><br>
+          If you use the contact form, we’ll get the message in our inbox. We won’t share it or sell it. It’s just 
+          there for genuine questions, feedback, or help requests. If anyone uses it to send spam, threats, or 
+          anything abusive, their access might be blocked. Please don’t misuse it.
+          <br><br>
+          This site doesn’t track personal information. We don’t have user accounts, we don’t save your name or email 
+          unless you send it through the contact form. We don’t use cookies for advertising. A few basic logs might be 
+          kept (like how often a tool is used), just to help keep things running smoothly — but nothing that can identify 
+          you directly.
+          <br><br>
+          Everything on this site — the design, the logic, the way it works — is created and maintained by the developer. 
+          You’re welcome to use it freely, but you’re not allowed to copy or resell the tool, or try to reverse-engineer 
+          how it works. Some icons and features are borrowed from open-source libraries or icon providers (like QR code 
+          tools and Flaticon), and they each follow their own licenses.
+          <br><br>
+          Please understand that we can’t guarantee everything will always work perfectly. The tool is offered “as is.” 
+          If something breaks or a link doesn’t unshorten, or your QR code doesn’t scan — we’ll do our best to fix it, 
+          but we’re not responsible for any problems that come up because of it. Use it at your own risk.
+          <br><br>
+          Sometimes updates or changes might happen without prior notice — whether it’s a feature being removed or the 
+          layout being adjusted. That’s just a normal part of keeping things running. We may also update these terms 
+          from time to time. You’re encouraged to check back occasionally. If you keep using the tool after changes are 
+          made, it means you’re okay with the new terms too.
+          If anything’s unclear or you have a question, you can always use the contact form. I’ll do my best to get 
+          back to you quickly and respectfully.
+          <br><br>
+          Thanks for using the tool — and for being a responsible, thoughtful user.
+          <br><br>
+          <h9><b>-Asim Husain</b></h9>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Form Popup -->
+  <div id="contactPopup" class="contact-popup">
+  <div class="contact-content">
+    <span class="close-btn" onclick="closeContactPopup()">&times;</span>
+    <h2><img src="images/contact.png" alt="Contact Icon" class="popup-icon">Contact Us</h2>
+
+    <!-- Name Input -->
+    <div class="input-group">
+      <img src="images/name.png" alt="User" class="input-icon">
+      <input type="text" id="contactName" placeholder="Your Name" required />
+    </div>
+
+    <!-- Mobile Number Input -->
+    <div class="input-group">
+      <img src="images/phone.png" alt="Phone" class="input-icon">
+      <input type="text" id="contactMobile" placeholder="Mobile No" required />
+    </div>
+
+    <!-- Email Input -->
+    <div class="input-group">
+      <img src="images/email.png" alt="Email" class="input-icon">
+      <input type="email" id="contactEmail" placeholder="Your Email" required />
+    </div>
+
+    <!-- Message Textarea -->
+    <div class="input-group">
+      <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button id="contactSendBtn" onclick="submitContact()">Send</button>
+  </div>
+</div>
+
+
+  <!-- Mobile Device Popup -->
+  <div id="mobilePopup" class="popup-overlay">
+    <div class="popup-content">
+      <span class="close-mobile-popup">&times;</span>
+      <p><u><b>This Is Web Application</b></u><br><br>Please Open In Desktop Mode<br>For Better Performance</p>
+    </div>
+  </div>
+
+</body>
+</html>

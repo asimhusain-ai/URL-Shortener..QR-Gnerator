@@ -1,0 +1,107 @@
+<!-- This Code is Written By  -- ASIM HUSAIN -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TinyURL</title>
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body class="dark">
+  <canvas id="nokey"></canvas>
+
+  <h1>Unshorten URL</h1>
+
+  <a href="index.html" id="backArrow">
+    <img src="images/back.png" alt="Go Back">
+  </a>
+
+  <div class="input-wrapper" id="qrWrapper">
+    <!-- Back icon shown during QR preview or result -->
+    <img 
+      src="images/back.png" 
+      alt="Back" 
+      class="back-logo" 
+      id="backArrow" 
+      onclick="restoreOriginal()" 
+      style="display: none;" 
+    />
+
+    <input 
+      type="text" 
+      id="urlInput" 
+      placeholder="Paste URL here..." 
+    />
+
+    <div class="qr-icon-container" id="qrContainer">
+      <!-- QR Scan Icon -->
+      <img 
+        src="images/qrscan.png" 
+        alt="Scan QR" 
+        id="qrScanIcon" 
+        onclick="startQRScan(event)" 
+      />
+
+      <!-- Copy section (shown after unshortening) -->
+      <div class="copy-wrapper" id="copyWrapper" style="display: none;">
+        <span class="copied-text" id="copiedText">Copied</span>
+        <img 
+          src="images/copy.png" 
+          alt="Copy" 
+          title="Copy Link" 
+          id="copyIcon" 
+          onclick="copyLink()" 
+        />
+      </div>
+
+      <!-- Show QR Code icon -->
+      <img 
+        src="images/qrcode.png" 
+        alt="QR Code" 
+        id="qrCodeIcon" 
+        onclick="showQROptions()" 
+        style="display: none;" 
+      />
+
+      <!-- QR action icons -->
+      <div class="qr-icons" id="qrIcons">
+        <img 
+          src="images/download.png" 
+          alt="Download" 
+          title="Download" 
+          onclick="event.stopPropagation(); downloadQR();" 
+        />
+        <img 
+          src="images/share.png" 
+          alt="Share" 
+          title="Share" 
+          onclick="event.stopPropagation(); shareQR();" 
+        />
+      </div>
+    </div>
+  </div>
+
+  <button id="unshortBtn" onclick="unshortenLink()">Unshorten</button>
+
+  <p id="result"></p>
+
+  <!-- Theme toggle -->
+  <div id="themeToggle" onclick="toggleTheme()">
+    <div id="themeIcon" class="moon"></div>
+  </div>
+
+  <!-- QR Scanner -->
+  <div id="qrScanner" style="display: none;">
+    <div id="reader" style="width: 300px;"></div>
+    <button onclick="stopQRScan()">Close</button>
+  </div>
+
+  <script src="js/unshort_script.js"></script>
+</body>
+</html>
