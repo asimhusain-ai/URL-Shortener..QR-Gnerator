@@ -11,7 +11,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'https://tinyurl-s8jg.onrender.com' // Paste Frontend Link Here...
+  origin: 'https://tinyurl-chvx.onrender.com' // Paste Frontend Link Here...
 }));
 
 app.use(express.json());
@@ -42,7 +42,7 @@ app.post('/shorten', async (req, res) => {
     const newLink = await Link.create({ originalUrl, shortId });
 
     res.json({
-      shortUrl: `https://tinyurl-s8jg.onrender.com/${shortId}`, // Paste Frontend Link Here...
+      shortUrl: `https://tinyurl-chvx.onrender.com/${shortId}`, // Paste Frontend Link Here...
     });
   } catch (err) {
     console.error(err);
