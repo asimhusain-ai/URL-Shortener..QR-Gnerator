@@ -61,5 +61,5 @@ Performance Optimization: Focused on creating a responsive and performant user e
 **👨‍💻 Made By**
 Made with ❤️ by Asim Husain. https://asimhusain.vercel.app
 
-📄 License
+**📄 License**
 This project is licensed under the MIT License. Feel free to fork, modify, or build upon it! See the LICENSE file for details.
