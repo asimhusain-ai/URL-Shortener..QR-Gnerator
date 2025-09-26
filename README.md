@@ -7,6 +7,8 @@ A simple, fast, and reliable URL shortener that makes sharing links effortless. 
 The idea behind this TinyURL clone is to simplify link sharing. Instead of dealing with long, cumbersome URLs, you can instantly create a concise link and a corresponding QR code. Whether you're sharing on social media, in a document, or just tidying up your links, this tool helps you do it quickly and without any fuss.
 
 ---
+**NOTE:**
+Almost 60% Code is written through Vibe Coding [LLMs, Python Website and Other Resources]
 
 ## 🌐 Live Demo [RENDER]
 👉 https://tinyurl-chvx.onrender.com
